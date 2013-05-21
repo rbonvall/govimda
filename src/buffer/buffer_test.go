@@ -6,25 +6,31 @@ import (
 	"testing"
 )
 
-func TestNewFromFile(test *testing.T) {
-	f, err := ioutil.TempFile("", "testnewfromfile")
-	if err != nil {
-		test.Error("Could not create temp file.")
-	}
-	defer os.Remove(f.Name())
-	lines := []string{
+var lines = []string{
 		"Lorem ipsum dolor sit amet,",
 		"consectetur adipisicing elit, sed",
 		"do eiusmod tempor incididunt ut",
 		"labore et dolore magna aliqua.",
+}
+
+func createTestFile() (name string) {
+	f, err := ioutil.TempFile("", "testnewfromfile")
+	if err != nil {
+		panic("Could not create temp file.")
 	}
+	defer f.Close()
 	for _, line := range lines {
 		f.Write([]byte(line))
 		f.Write([]byte("\n"))
 	}
-	f.Close()
+	return f.Name()
+}
+
+func TestNewFromFile(test *testing.T) {
+	name := createTestFile()
+	defer os.Remove(name)
 	
-	buffer, err := NewFromFile(f.Name())
+	buffer, _ := NewFromFile(name)
 
 	var current_line *Line
 
