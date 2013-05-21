@@ -34,6 +34,13 @@ func TestNewFromFile(test *testing.T) {
 
 	var current_line *Line
 
+	if buffer.first_line.prev != nil {
+		test.Errorf("There is a line before the first one.")
+	}
+	if buffer.last_line.next != nil {
+		test.Errorf("There is a line after the last one.")
+	}
+
 	// Traverse buffer down from the beginning.
 	current_line = buffer.first_line
 	for i := 0; i < len(lines); i++ {
