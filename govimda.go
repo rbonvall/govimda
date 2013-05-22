@@ -23,8 +23,11 @@ func main() {
 	}
 
 	termbox.Init()
+	defer termbox.Close()
 	vp := screen.NewViewport()
-	termbox.Close()
+	vp.Buffer = currentBuffer
+	vp.Draw()
+	termbox.PollEvent()
 
 	fmt.Println(currentBuffer)
 	fmt.Println(vp)
