@@ -45,7 +45,7 @@ func TestNewFromFile(test *testing.T) {
 	current_line = buffer.first_line
 	for i := 0; i < len(lines); i++ {
 		expected := lines[i]
-		got := current_line.data
+		got := current_line.Data
 		if (expected != got) {
 			test.Logf("Traversing file.")
 			test.Errorf(`Line %v. Expected: "%v". Got: "%v"`, i, expected, got)
@@ -57,7 +57,7 @@ func TestNewFromFile(test *testing.T) {
 	current_line = buffer.last_line
 	for i := len(lines) - 1; i >= 0; i-- {
 		expected := lines[i]
-		got := current_line.data
+		got := current_line.Data
 		if (expected != got) {
 			test.Logf("Traversing file in reverse.")
 			test.Errorf(`Line %v. Expected: "%v". Got: "%v"`, i, expected, got)
@@ -73,7 +73,7 @@ func TestLineByIndex(test *testing.T) {
 
 	for i := 0; i < len(lines); i++ {
 		expected := lines[i]
-		got := buffer.LineByIndex(i).data
+		got := buffer.LineByIndex(i).Data
 		if expected != got {
 			test.Errorf(`Line index %v. Expected: "%v". Got: "%v"`, i, expected, got)
 		}
@@ -87,7 +87,7 @@ func TestLineByIndexInReverse(test *testing.T) {
 
 	for i := 0; i < len(lines); i++ {
 		expected := lines[len(lines) - 1 - i]
-		got := buffer.LineByIndexInReverse(i).data
+		got := buffer.LineByIndexInReverse(i).Data
 		if expected != got {
 			test.Errorf(`Line index %v. Expected: "%v". Got: "%v"`, i, expected, got)
 		}
@@ -117,7 +117,7 @@ func TestLineByNumber(test *testing.T) {
 				test.Errorf(`Line number %v. Expected: "%v". Got: nil`, n, expected)
 			}
 		default:
-			got := line.data
+			got := line.Data
 			if v != nil {
 				expected := *v
 				if expected != got {

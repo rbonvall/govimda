@@ -7,7 +7,7 @@ import (
 )
 
 type Line struct {
-	data string
+	Data string
 	next *Line
 	prev *Line
 }
@@ -29,7 +29,7 @@ func NewEmpty() *Type {
 }
 
 func appendLine(buffer *Type, data string) {
-	newLine := &Line{data: data, next: nil}
+	newLine := &Line{Data: data, next: nil}
 	if buffer.last_line == nil {
 		newLine.prev = nil
 		buffer.first_line = newLine
