@@ -1,6 +1,6 @@
 GO := GOPATH=$(GOPATH):$(PWD) go
 
-govimda:
+build:
 	@$(GO) build
 
 clean:
@@ -14,4 +14,4 @@ testpkg:
 test: testpkg
 	@$(GO) test
 
-.PHONY: clean testpkg test
+.PHONY: build clean testpkg test
