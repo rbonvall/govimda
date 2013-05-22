@@ -26,7 +26,7 @@ func NewViewport() *Viewport {
 func (v *Viewport) printStringAt(y, x0 int, s string) {
 	fg := termbox.ColorDefault
 	bg := termbox.ColorDefault
-	for i, c := range []byte(s) {
+	for i, c := range s {
 		x := x0 + i
 		if x > v.X + v.Width {
 			return
