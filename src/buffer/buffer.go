@@ -66,6 +66,9 @@ func NewFromFile(fileName string) (buffer *Type, err error) {
 func (b *Type) LineByIndex(index int) (line *Line) {
 	line = b.first_line
 	for i := 0; i < index; i++ {
+		if line.next == nil {
+			return nil
+		}
 		line = line.next
 	}
 	return
@@ -78,6 +81,9 @@ func (b *Type) LineByIndex(index int) (line *Line) {
 func (b *Type) LineByIndexInReverse(index int) (line *Line) {
 	line = b.last_line
 	for i := 0; i < index; i++ {
+		if line.prev == nil {
+			return nil
+		}
 		line = line.prev
 	}
 	return
