@@ -1,11 +1,14 @@
 package screen
 
 import (
+	"buffer"
 	"github.com/nsf/termbox-go"
 )
 
 type Viewport struct {
 	X, Y, Width, Height int
+	Buffer *buffer.Type
+	I, J int
 }
 
 func NewViewport() *Viewport {
