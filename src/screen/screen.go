@@ -22,3 +22,27 @@ func NewViewport() *Viewport {
 	}
 
 }
+
+func (v *Viewport) printStringAt(y, x0 int, s string) {
+	fg := termbox.ColorDefault
+	bg := termbox.ColorDefault
+	for i, c := range []byte(s) {
+		x := x0 + i
+		if x > v.X + v.Width {
+			return
+		}
+		termbox.SetCell(x, y, rune(c), fg, bg)
+	}
+}
+
+func (v *Viewport) Draw() {
+	i := v.I
+	for y := v.Y; y < v.Height; y++ {
+		line := v.Buffer.LineByIndex(i)
+		if line != nil {
+			v.printStringAt(y, v.X, line.Data)
+		}
+		i++
+	}
+	termbox.Flush()
+}
