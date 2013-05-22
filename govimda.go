@@ -24,8 +24,17 @@ func main() {
 
 	termbox.Init()
 	defer termbox.Close()
+
 	vp := screen.NewViewport()
 	vp.Buffer = currentBuffer
 	vp.Draw()
-	termbox.PollEvent()
+
+	ch := make(chan string)
+	go screen.WaitForInput(ch)
+	for {
+		message := <-ch
+		if message == "quit" {
+			break
+		}
+	}
 }
