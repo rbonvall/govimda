@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/nsf/termbox-go"
 	"buffer"
-	"fmt"
+	//"fmt"
 	"os"
 	"screen"
 )
@@ -28,7 +28,4 @@ func main() {
 	vp.Buffer = currentBuffer
 	vp.Draw()
 	termbox.PollEvent()
-
-	fmt.Println(currentBuffer)
-	fmt.Println(vp)
 }
