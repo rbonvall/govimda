@@ -10,7 +10,7 @@ import (
 
 
 func main() {
-	var currentBuffer *buffer.Type
+	var currentBuffer *buffer.T
 	var err error
 
 	if len(os.Args) == 1 {

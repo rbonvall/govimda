@@ -7,7 +7,7 @@ import (
 
 type Viewport struct {
 	X, Y, Width, Height int
-	Buffer *buffer.Type
+	Buffer *buffer.T
 	I, J int
 }
 

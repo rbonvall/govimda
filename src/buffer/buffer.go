@@ -12,23 +12,23 @@ type Line struct {
 	prev *Line
 }
 
-type Type struct {
+type T struct {
 	first_line *Line
 	last_line *Line
 	path string
 	name string
 }
 
-func NewEmpty() *Type {
+func NewEmpty() *T {
 	l := &Line{next: nil, prev: nil}
-	b := &Type{
+	b := &T{
 		first_line: l,
 		last_line: l,
 	}
 	return b
 }
 
-func appendLine(buffer *Type, data string) {
+func appendLine(buffer *T, data string) {
 	newLine := &Line{Data: data, next: nil}
 	if buffer.last_line == nil {
 		newLine.prev = nil
@@ -41,7 +41,7 @@ func appendLine(buffer *Type, data string) {
 	}
 }
 
-func NewFromFile(fileName string) (buffer *Type, err error) {
+func NewFromFile(fileName string) (buffer *T, err error) {
 	file, err := os.Open(fileName)
 	if err != nil { return }
 
@@ -51,7 +51,7 @@ func NewFromFile(fileName string) (buffer *Type, err error) {
 
 	contents := strings.Split(string(data), "\n")
 	contents = contents[:len(contents) - 1]
-	buffer = new(Type)
+	buffer = new(T)
 	for _, lineData := range contents {
 		appendLine(buffer, lineData)
 	}
@@ -63,7 +63,7 @@ func NewFromFile(fileName string) (buffer *Type, err error) {
 // and returns the corresponding line.
 // Index 0 refers to the last line of the buffer.
 // If the line does not exist, it returns nil.
-func (b *Type) LineByIndex(index int) (line *Line) {
+func (b *T) LineByIndex(index int) (line *Line) {
 	line = b.first_line
 	for i := 0; i < index; i++ {
 		if line.next == nil {
@@ -78,7 +78,7 @@ func (b *Type) LineByIndex(index int) (line *Line) {
 // and returns the corresponding line in reverse order.
 // Index 0 refers to the last line of the buffer.
 // If the line does not exist, it returns nil.
-func (b *Type) LineByIndexInReverse(index int) (line *Line) {
+func (b *T) LineByIndexInReverse(index int) (line *Line) {
 	line = b.last_line
 	for i := 0; i < index; i++ {
 		if line.prev == nil {
@@ -94,7 +94,7 @@ func (b *Type) LineByIndexInReverse(index int) (line *Line) {
 // Number 1 refers to the first line, number -1 refers to the last line.
 // There is no line 0.
 // If the line does not exist, it returns nil.
-func (b *Type) LineByNumber(nrLine int) (line *Line) {
+func (b *T) LineByNumber(nrLine int) (line *Line) {
 	switch {
 	case nrLine > 0:
 		line = b.LineByIndex(nrLine - 1)
