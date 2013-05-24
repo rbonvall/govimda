@@ -59,6 +59,14 @@ func NewFromFile(fileName string) (buffer *T, err error) {
 	return
 }
 
+func NewFromStrings(strs []string) (buffer *T, err error) {
+		buffer = new(T)
+		for _, s := range strs {
+				appendLine(buffer, s)
+		}
+		return
+}
+
 // LineByIndex takes a zero-based line index
 // and returns the corresponding line.
 // Index 0 refers to the last line of the buffer.
