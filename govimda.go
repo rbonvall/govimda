@@ -25,7 +25,8 @@ func main() {
 	termbox.Init()
 	defer termbox.Close()
 
-	vp := screen.NewViewport()
+	W, H := termbox.Size()
+	vp := screen.NewViewport(0, 0, W, H)
 	vp.Buffer = currentBuffer
 	vp.Draw()
 

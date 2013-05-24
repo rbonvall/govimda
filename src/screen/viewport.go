@@ -11,14 +11,11 @@ type Viewport struct {
 	I, J int
 }
 
-func NewViewport() *Viewport {
-	// Maximized for now.
-
-	winWidth, winHeight := termbox.Size()
+func NewViewport(x, y, w, h int) *Viewport {
 	return &Viewport{
-		X: 0, Y: 0,
-		Width: winWidth,
-		Height: winHeight - 2,
+		X: x, Y: y,
+		Width: w,
+		Height: h,
 	}
 
 }
@@ -45,4 +42,13 @@ func (v *Viewport) Draw() {
 		i++
 	}
 	termbox.Flush()
+}
+
+func (v *Viewport) Paint(color termbox.Attribute) {
+	for y := v.Y; y < v.Height; y++ {
+		for x := v.X; x < v.Width; x++ {
+			termbox.CellBuffer()[y * v.Width + x].Bg = color
+
+		}
+	}
 }
