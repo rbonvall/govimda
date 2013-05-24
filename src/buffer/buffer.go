@@ -51,11 +51,7 @@ func NewFromFile(fileName string) (buffer *T, err error) {
 
 	contents := strings.Split(string(data), "\n")
 	contents = contents[:len(contents) - 1]
-	buffer = new(T)
-	for _, lineData := range contents {
-		appendLine(buffer, lineData)
-	}
-
+	buffer, err = NewFromStrings(contents)
 	return
 }
 
