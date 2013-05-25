@@ -3,6 +3,7 @@ package screen
 import (
 	"buffer"
 	"github.com/nsf/termbox-go"
+	"strings"
 )
 
 type Viewport struct {
@@ -30,6 +31,14 @@ func (v *Viewport) printStringAt(y, x0 int, s string) {
 		}
 		termbox.SetCell(x, y, rune(c), v.Fg, v.Bg)
 	}
+}
+
+func fitStringToWidth(s string, w int) string {
+	n := len(s)
+	if n < w {
+		return s + strings.Repeat(" ", w - n)
+	}
+	return s[:w]
 }
 
 func (v *Viewport) Draw() {
