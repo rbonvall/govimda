@@ -1,0 +1,48 @@
+package screen
+
+import (
+	"github.com/nsf/termbox-go"
+	// "buffer"
+)
+
+type T struct {
+	EditArea *Viewport
+	Panel    *Viewport
+	Gutter   *Viewport
+	CmdLine  *Viewport
+}
+
+func New() *T {
+	W, H := termbox.Size()
+	gw := 4
+	pw := 20
+	ew := W - (gw + pw) - 2
+	s := &T{
+		Gutter:   NewViewport(0,           0, gw, H - 2),
+		EditArea: NewViewport(gw + 1,      0, ew, H - 2),
+		Panel:    NewViewport(gw + ew + 2, 0, pw, H - 2),
+		CmdLine:  NewViewport(0, H  -1, W, 1),
+	}
+	s.Gutter.Fg = termbox.ColorYellow
+
+	for x := 0; x < W; x++ {
+		termbox.SetCell(x, H-2, '─', termbox.ColorDefault, termbox.ColorDefault)
+	}
+	for y := 0; y < H-2; y++ {
+		termbox.SetCell(gw, y, '│', termbox.ColorDefault, termbox.ColorDefault)
+		termbox.SetCell(gw+ew+1, y, '│', termbox.ColorDefault, termbox.ColorDefault)
+	}
+	termbox.SetCell(gw, H-2, '┴', termbox.ColorDefault, termbox.ColorDefault)
+	termbox.SetCell(gw+ew+1, H-2, '┴', termbox.ColorDefault, termbox.ColorDefault)
+
+	return s
+}
+
+func (s *T) Draw() {
+	s.Gutter.Draw()
+	s.EditArea.Draw()
+	s.Panel.Draw()
+	s.CmdLine.Draw()
+
+	termbox.Flush()
+}
