@@ -9,6 +9,7 @@ type Viewport struct {
 	X, Y, Width, Height int
 	Buffer *buffer.T
 	I, J int
+	Fg, Bg termbox.Attribute
 }
 
 func NewViewport(x, y, w, h int) *Viewport {
@@ -16,19 +17,18 @@ func NewViewport(x, y, w, h int) *Viewport {
 		X: x, Y: y,
 		Width: w,
 		Height: h,
+		Fg: termbox.ColorDefault,
+		Bg: termbox.ColorDefault,
 	}
-
 }
 
 func (v *Viewport) printStringAt(y, x0 int, s string) {
-	fg := termbox.ColorDefault
-	bg := termbox.ColorDefault
 	for i, c := range s {
 		x := x0 + i
 		if x > v.X + v.Width {
 			return
 		}
-		termbox.SetCell(x, y, rune(c), fg, bg)
+		termbox.SetCell(x, y, rune(c), v.Fg, v.Bg)
 	}
 }
 
