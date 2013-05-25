@@ -59,10 +59,14 @@ func (v *Viewport) Draw() {
 }
 
 func (v *Viewport) Paint(color termbox.Attribute) {
-	for y := v.Y; y < v.Height; y++ {
-		for x := v.X; x < v.Width; x++ {
-			termbox.CellBuffer()[y * v.Width + x].Bg = color
-
+	cb := termbox.CellBuffer()
+	screenWidth, _ := termbox.Size()
+	for y := v.Y; y < v.Y + v.Height; y++ {
+	for x := v.X; x < v.X + v.Width;  x++ {
+			cb[screenWidth * y + x].Bg = color
+			// time.Sleep(5 * time.Millisecond)
+			// termbox.Flush()
 		}
 	}
+	termbox.Flush()
 }
