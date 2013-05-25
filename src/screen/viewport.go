@@ -33,6 +33,9 @@ func (v *Viewport) printStringAt(y, x0 int, s string) {
 }
 
 func (v *Viewport) Draw() {
+	if v.Buffer == nil {
+		return
+	}
 	i := v.I
 	for y := v.Y; y < v.Height; y++ {
 		line := v.Buffer.LineByIndex(i)
