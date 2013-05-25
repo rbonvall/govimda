@@ -49,7 +49,9 @@ func (v *Viewport) Draw() {
 	for y := v.Y; y < v.Height; y++ {
 		line := v.Buffer.LineByIndex(i)
 		if line != nil {
-			v.printStringAt(y, v.X, line.Data)
+			l := strings.Replace(line.Data, "\t", "    ", -1)
+			l = fitStringToWidth(l, v.Width)
+			v.printStringAt(y, v.X, l)
 		}
 		i++
 	}
