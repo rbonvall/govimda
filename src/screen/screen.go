@@ -44,5 +44,20 @@ func (s *T) Draw() {
 	s.Panel.Draw()
 	s.CmdLine.Draw()
 
+	// paint viewports
+	//s.Gutter.Paint(termbox.ColorGreen)
+	//s.EditArea.Paint(termbox.ColorBlue)
+	//s.Panel.Paint(termbox.ColorRed)
+	//s.CmdLine.Paint(termbox.ColorYellow)
+
 	termbox.Flush()
 }
+
+func Init() {
+	termbox.Init()
+}
+
+func Close() {
+	termbox.Close()
+}
+

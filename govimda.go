@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/nsf/termbox-go"
 	"buffer"
 	"os"
 	"screen"
@@ -21,8 +20,8 @@ func main() {
 		}
 	}
 
-	termbox.Init()
-	defer termbox.Close()
+	screen.Init()
+	defer screen.Close()
 
 	s := screen.New()
 
@@ -30,12 +29,6 @@ func main() {
 	s.EditArea.Buffer = currentBuffer
 	s.Gutter.Buffer, _ = buffer.NewFromStrings([]string{"1", "2", "3", "4"})
 	s.Panel.Buffer, _ = buffer.NewFromStrings([]string{"a", "b", "c", "d", "e"})
-
-	// paint viewports
-	//s.Gutter.Paint(termbox.ColorGreen)
-	//s.EditArea.Paint(termbox.ColorBlue)
-	//s.Panel.Paint(termbox.ColorRed)
-	//s.CmdLine.Paint(termbox.ColorYellow)
 
 	s.Draw()
 
