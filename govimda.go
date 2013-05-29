@@ -1,6 +1,7 @@
 package main
 
 import (
+	"editor"
 	"screen"
 )
 
@@ -8,8 +9,9 @@ import (
 func main() {
 	screen.Init()
 
-	s := screen.New()
-	s.Draw()
+	e := editor.New()
+	e.Draw()
+	screen.Refresh()
 
 	ch := make(chan string)
 	go screen.WaitForInput(ch)
