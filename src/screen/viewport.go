@@ -72,3 +72,11 @@ func (v *Viewport) Paint(color termbox.Attribute) {
 	}
 	termbox.Flush()
 }
+
+func (v *Viewport) SetGeometry(x, y, w, h int) {
+	v.X, v.Y, v.Width, v.Height = x, y, w, h
+}
+
+func (v *Viewport) BindBuffer(b *buffer.T) {
+	v.Buffer = b
+}
