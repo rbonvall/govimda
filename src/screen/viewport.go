@@ -24,12 +24,14 @@ func NewViewport(x, y, w, h int) *Viewport {
 }
 
 func (v *Viewport) printStringAt(y, x0 int, s string) {
-	for i, c := range s {
+	i := 0
+	for _, c := range s {
 		x := x0 + i
 		if x > v.X + v.Width {
 			return
 		}
 		termbox.SetCell(x, y, rune(c), v.Fg, v.Bg)
+		i++
 	}
 }
 
