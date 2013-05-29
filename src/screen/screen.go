@@ -2,7 +2,7 @@ package screen
 
 import (
 	"github.com/nsf/termbox-go"
-	// "buffer"
+	"buffer"
 )
 
 type T struct {
@@ -10,6 +10,8 @@ type T struct {
 	Panel    *Viewport
 	Gutter   *Viewport
 	CmdLine  *Viewport
+
+	BufferList *buffer.List
 }
 
 func New() *T {
@@ -24,6 +26,13 @@ func New() *T {
 		CmdLine:  NewViewport(0, H  -1, W, 1),
 	}
 	s.Gutter.Fg = termbox.ColorYellow
+
+	// initialize buffers
+	s.BufferList = buffer.NewListFromArgs()
+	s.EditArea.Buffer = s.BufferList.Current()
+	s.Gutter.Buffer, _ = buffer.NewFromStrings([]string{"1", "2", "3", "4"})
+	// s.Panel.Buffer, _ = buffer.NewFromStrings([]string{"a", "b", "c", "d", "e"})
+	s.Panel.Buffer = buffer.NewEmpty()
 
 	for x := 0; x < W; x++ {
 		termbox.SetCell(x, H-2, '─', termbox.ColorDefault, termbox.ColorDefault)
