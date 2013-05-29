@@ -12,6 +12,7 @@ type T struct {
 	CmdLine  *screen.Viewport
 
 	BufferList *buffer.List
+	Command chan string
 }
 
 
@@ -35,6 +36,8 @@ func New() *T {
 	editor.Gutter.Buffer, _ = buffer.NewFromStrings([]string{"1", "2", "3", "4"})
 	// editor.Panel.Buffer, _ = buffer.NewFromStrings([]string{"a", "b", "c", "d", "e"})
 	editor.Panel.Buffer = buffer.NewEmpty()
+
+	editor.Command = make(chan string)
 
 	editor.Draw()
 	return editor
@@ -61,4 +64,13 @@ func (e *T) Draw() {
 	//s.CmdLine.Paint(termbox.ColorYellow)
 
 	screen.Refresh()
+}
+
+func (e *T) MainLoop() {
+loop:	for {
+		msg := <-e.Command
+		if msg == "quit" {
+			break loop
+		}
+	}
 }

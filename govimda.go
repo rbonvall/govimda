@@ -13,14 +13,7 @@ func main() {
 	e.Draw()
 	screen.Refresh()
 
-	ch := make(chan string)
-	go screen.WaitForInput(ch)
-	for {
-		message := <-ch
-		if message == "quit" {
-			break
-		}
-	}
-
+	go screen.WaitForInput(e.Command)
+	e.MainLoop()
 	screen.Close()
 }
